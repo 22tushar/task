@@ -5,6 +5,11 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import axios from 'axios'
+const verify = async(id) => {
+    await axios.post(`http://localhost:8080/content/verify/`, {prams : {id: id}})
+}
+
 
 export default function MediaCard(props) {
   return (
@@ -25,7 +30,7 @@ export default function MediaCard(props) {
       </CardContent>
       <CardActions>
         {/* <Button size="small">Share</Button> */}
-        <Button size="small"> {props.author} </Button>
+        <Button onclick = {() =>  {verify(props.id)}}> Verify </Button>
       </CardActions>
     </Card>
   );

@@ -1,13 +1,18 @@
-import { User } from "../models/user";
+const {User} =  require("../models/user");
 const router = require("express").Router();
+const {Postmodel} = require("../models/content")
 
 
 //Admin and super admin
 router.post("/save",async (req,res)=>{
-    const newPost = new Post(req.body);
+    const {title , description, author, status} = req.body
+    console.log(req.body)
+    const newPost =  await Postmodel.create({title , description, author, status});
+    // await newPost.save()
+    console.log(newPost)
     try {
-        const savePost = await newPost.save();
-        res.status(200).json(savePost);
+        // const savePost = await newPost.save();
+        res.status(200).json(newPost);
     } catch (err) {
         res.status(500).json(err);
     }
@@ -15,10 +20,10 @@ router.post("/save",async (req,res)=>{
 
 
 //users admin super (all)
-router.get("/view", async (req, res)=>{
+router.post("/view", async (req, res)=>{
     try {
         
-        const post = await Post.find({status:'verified'});
+        const post = await Postmodel.find({status:'unverified'});
         res.josn({posts:post});
         
     } catch (err) {
@@ -29,7 +34,7 @@ router.get("/view", async (req, res)=>{
 //super admin
 router.get('/unverified' , async(req,res)=>{
     try{
-        const post = await Post.find({status:unverified});
+        const post = await Postmodel.find({status:"unverified"});
         res.json({posts:post});
     }
     catch{
@@ -56,3 +61,5 @@ router.post("/verify:id", async (req, res)=>{
         res.status(500).json(err);
     }
 });
+
+module.exports = router

@@ -5,6 +5,8 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import Addpost from "./pages/Addpost";
+import Viewpost from "./pages/Viewpost";
+import VerifyPost from "./pages/superadmin/authorize";
 
 
 
@@ -20,6 +22,8 @@ function App() {
         <Route path="/signup" element = {<Signup/>} />
         <Route path="/dashboard" element = {<Dashboard/>} />
         <Route path="/addpost" element = {<Addpost/>} />
+        <Route path="/viewpost" element = {<Viewpost/>} />
+        <Route path="/verifyPost" element = {<VerifyPost/>} />
       </Routes>
     </BrowserRouter>
   );

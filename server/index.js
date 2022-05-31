@@ -4,6 +4,7 @@ const cors = require('cors')
 const connection = require('./db')
 const userRoutes = require('./routes/user')
 const authRoutes = require('./routes/auth')
+const content = require('./routes/content')
 
 const app = express()
 
@@ -20,6 +21,7 @@ app.use(cors())
 //routes
 app.use('/api/user', userRoutes)
 app.use('/api/auth', authRoutes)
+app.use('/content', content)
 
 //starting server
 const port = process.env.PORT || 8080
