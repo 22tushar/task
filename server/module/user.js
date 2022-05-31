@@ -20,6 +20,10 @@ const userSchema = new mongoose.Schema({
         type: 'string',
         required: true,
     },
+    role : {
+         type:'string',
+         required : true
+    }
 });
 
 userSchema.methods.generateAuthToken = () => {
@@ -35,6 +39,7 @@ const validate = (data) => {
         lastName : joi.string().required().label('Last Name'),
         email : joi.string().email().required().label('Email'),
         password : passwordComplexity().required().label('Password'),
+        role : joi.string()
     });
     return schema.validate(data);
 }

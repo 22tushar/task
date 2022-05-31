@@ -22,11 +22,13 @@ const loginSchema = Yup.object().shape({
         .email('Enter a valid email'),
     password : Yup
             .string()
-            .required('Please Enter your password')
+            .required('Please Enter your password'),
             // .matches(
             //     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
             //     "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
             // ),
+         role : Yup.string()
+
 })
 
 const Login = () => {
@@ -38,13 +40,15 @@ const Login = () => {
         lastName : '',
         email : '',
         password : '',
+        role : '',
     }
 
     const handleSubmit = async (values, {setSubmitting}) => {
-        console.log(values);
+
         try {
             const URL = "http://localhost:8080/api/user"
             const {data : res} = await axios.post(URL, values);
+            localStorage.setItem('user',JSON.stringify(values));
             navigate('/login')
             console.log(res.message);
         } catch (error) {
@@ -79,6 +83,7 @@ const Login = () => {
                                     <Field name = "password" className = {styles.input} placeholder= "Password"/>
                                     {errors.password && touched.password ? <div className = {styles.error} >{errors.password}</div> : null}
                                     {errors.backend  ? <div className = {styles.error} >{errors.backend}</div> : null}
+                                    <Field name="role" className={styles.input} placeholder= "role"/>
                                     <Button type='submit' disabled={isSubmitting} className = {styles.button} > Sign up </Button>
                                 </Form>
                             )}                  

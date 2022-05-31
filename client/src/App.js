@@ -11,9 +11,9 @@ var user = null;
 
 
 function App() {
-  React.useEffect(() =>{
-    user = localStorage.getItem('user');
- }, [])
+  
+    user =JSON.parse(localStorage.getItem('user'));
+    console.log(user.role)
   return (
     <BrowserRouter>
       <Routes>
@@ -21,8 +21,7 @@ function App() {
         <Route path="/login" element = {<Login/>} />
         <Route path="/signup" element = {<Signup/>} />
         {
-          user ?
-          <Route path="/dashboard" element = {<Dashboard/>} /> : null
+          <Route path="/dashboard" element = {user.role == 'admin' ? <Dashboard/> : <Login/>} />
         }
       </Routes>
     </BrowserRouter>
