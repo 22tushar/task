@@ -20,13 +20,14 @@ router.post("/save",async (req,res)=>{
 
 
 //users admin super (all)
-router.post("/view", async (req, res)=>{
+router.get("/view", async (req, res)=>{
     try {
         
-        const post = await Postmodel.find({status:'unverified'});
-        res.josn({posts:post});
+        const post = await Postmodel.find({status:"unverified"});
+        res.json({posts:post});
         
     } catch (err) {
+        console.log(err)
         res.status(500).json(err);
     }
 });
