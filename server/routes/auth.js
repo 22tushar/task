@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {User} = require('../module/user');
+const {User} = require('../models/user');
 const bcrypt = require('bcrypt');
 const joi = require('joi');
 
