@@ -1,11 +1,8 @@
-// /save --> if admin further verified
-
-// /verify --> content id;
-// /review --> 
-// /view -->user
 import { User } from "../models/user";
 const router = require("express").Router();
 
+
+//Admin and super admin
 router.post("/save",async (req,res)=>{
     const newPost = new Post(req.body);
     try {
@@ -17,23 +14,29 @@ router.post("/save",async (req,res)=>{
 });
 
 
-
-router.get("/", async (req, res)=>{
-    const username = req.query.user;
+//users admin super (all)
+router.get("/view", async (req, res)=>{
     try {
-        let posts;
-        if(username){
-            posts = await Post.find({username});
-        } else{
-            posts = await Post.find();
-        }
-        res.status(200).json(posts);
+        
+        const post = await Post.find({status:'verified'});
+        res.josn({posts:post});
+        
     } catch (err) {
         res.status(500).json(err);
     }
 });
 
-router.get("/verify:id", async (req, res)=>{
+//super admin
+router.get('/unverified' , async(req,res)=>{
+    try{
+        const post = await Post.find({status:unverified});
+        res.json({posts:post});
+    }
+    catch{
+        res.status(500).send('error');
+    }
+})
+router.post("/verify:id", async (req, res)=>{
     try {
         if(User.role === 'super_admin'){
 
@@ -53,5 +56,3 @@ router.get("/verify:id", async (req, res)=>{
         res.status(500).json(err);
     }
 });
-
-module.exports = router;
